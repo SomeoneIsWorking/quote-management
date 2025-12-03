@@ -1,0 +1,31 @@
+<div class="login-container">
+  <nz-card class="login-card" nzTitle="Login">
+    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="Please enter a valid email">
+          <input nz-input formControlName="email" type="email" placeholder="Email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="Please enter your password">
+          <input nz-input formControlName="password" type="password" placeholder="Password" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!loginForm.valid">
+            Login
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="register-link">
+        Don't have an account? <a routerLink="/register">Register here</a>
+      </div>
+    </form>
+  </nz-card>
+</div>

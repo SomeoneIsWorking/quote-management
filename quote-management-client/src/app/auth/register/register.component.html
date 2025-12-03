@@ -1,0 +1,38 @@
+<div class="register-container">
+  <nz-card class="register-card" nzTitle="Register">
+    <form nz-form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="Please enter a valid email">
+          <input nz-input formControlName="email" type="email" placeholder="Email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="Password must be at least 6 characters">
+          <input nz-input formControlName="password" type="password" placeholder="Password" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Confirm Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="passwordErrorTip">
+          <input nz-input formControlName="confirmPassword" type="password" placeholder="Confirm Password" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!registerForm.valid">
+            Register
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="login-link">
+        Already have an account? <a routerLink="/login">Login here</a>
+      </div>
+    </form>
+  </nz-card>
+</div>

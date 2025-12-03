@@ -1,0 +1,123 @@
+<div class="quote-form-container">
+  <nz-card class="quote-form-card" nzTitle="Create Quote Request">
+    <form nz-form [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Mode</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select mode">
+              <nz-select formControlName="mode" nzPlaceHolder="Select mode">
+                <nz-option *ngFor="let option of modeOptions" [nzValue]="option" [nzLabel]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Movement Type</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select movement type">
+              <nz-select formControlName="movementType" nzPlaceHolder="Select movement type">
+                <nz-option *ngFor="let option of movementTypeOptions" [nzValue]="option" [nzLabel]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Incoterms</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select incoterms">
+              <nz-select formControlName="incoterms" nzPlaceHolder="Select incoterms">
+                <nz-option *ngFor="let option of incotermsOptions" [nzValue]="option" [nzLabel]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Package Type</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select package type">
+              <nz-select formControlName="packageType" nzPlaceHolder="Select package type">
+                <nz-option *ngFor="let option of packageTypeOptions" [nzValue]="option" [nzLabel]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Country</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please enter country">
+              <input nz-input formControlName="country" placeholder="Type country name" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>City</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select city">
+              <input 
+                nz-input 
+                formControlName="city" 
+                placeholder="Select city"
+                [nzAutocomplete]="auto"
+              />
+              <nz-autocomplete #auto>
+                <nz-auto-option *ngFor="let city of cities" [nzValue]="city">
+                  {{ city }}
+                </nz-auto-option>
+              </nz-autocomplete>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Currency</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select currency">
+              <nz-select formControlName="currency" nzPlaceHolder="Select currency">
+                <nz-option *ngFor="let option of currencyOptions" [nzValue]="option" [nzLabel]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Amount</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please enter amount">
+              <nz-input-number 
+                formControlName="amount" 
+                [nzMin]="0.01" 
+                [nzStep]="0.01"
+                [nzPrecision]="2"
+                nzPlaceHolder="Enter amount"
+                style="width: 100%"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzLoading]="loading" style="margin-right: 8px;">
+            Submit Quote Request
+          </button>
+          <button nz-button type="button" routerLink="/quotes/list">
+            View All Quotes
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>

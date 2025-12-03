@@ -1,0 +1,50 @@
+<div class="quote-list-container">
+  <nz-card class="quote-list-card" nzTitle="Quote Requests">
+    <div class="card-actions">
+      <button nz-button nzType="primary" routerLink="/quotes/form">
+        Create New Quote
+      </button>
+    </div>
+
+    <nz-table 
+      #quotesTable 
+      [nzData]="quotes" 
+      [nzLoading]="loading"
+      [nzPageSize]="10"
+      [nzScroll]="{ x: '1200px' }"
+    >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User Email</th>
+          <th>Country</th>
+          <th>City</th>
+          <th>Mode</th>
+          <th>Movement Type</th>
+          <th>Incoterms</th>
+          <th>Package Type</th>
+          <th>Original Currency</th>
+          <th>Original Amount</th>
+          <th>USD Amount</th>
+          <th>Created Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quote of quotesTable.data">
+          <td>{{ quote.id }}</td>
+          <td>{{ quote.userEmail }}</td>
+          <td>{{ quote.country }}</td>
+          <td>{{ quote.city }}</td>
+          <td>{{ quote.mode }}</td>
+          <td>{{ quote.movementType }}</td>
+          <td>{{ quote.incoterms }}</td>
+          <td>{{ quote.packageType }}</td>
+          <td>{{ quote.originalCurrency }}</td>
+          <td>{{ quote.originalAmount | number:'1.2-2' }}</td>
+          <td>{{ quote.usdAmount | number:'1.2-2' }}</td>
+          <td>{{ quote.createdDate | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</div>
