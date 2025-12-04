@@ -52,6 +52,21 @@ export class QuoteFormComponent implements OnInit {
   incotermsOptions = ['DDP', 'DAT'];
   packageTypeOptions = ['Pallets', 'Boxes', 'Cartons'];
   currencyOptions = ['USD', 'CNY', 'TRY'];
+  countryOptions: { [key: string]: string } = {
+    TR: 'Türkiye',
+    US: 'United States',
+    GB: 'United Kingdom',
+    DE: 'Germany',
+    FR: 'France',
+    ES: 'Spain',
+    IT: 'Italy',
+    CA: 'Canada',
+    CN: 'China',
+    JP: 'Japan',
+    IN: 'India',
+    BR: 'Brazil',
+    AU: 'Australia',
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -72,17 +87,24 @@ export class QuoteFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Watch country changes for city autocomplete
+    // Disable city field until country is entered
+    this.quoteForm.get('city')?.disable();
+
+    // Watch country changes to load cities
     this.quoteForm
       .get('country')
       ?.valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap((country) => {
-          if (country && country.length >= 2) {
+        switchMap((countryCode) => {
+          if (countryCode && countryCode.trim().length >= 2) {
             this.loadingCities = true;
-            return this.quoteService.getCities(country);
+            this.quoteForm.get('city')?.reset();
+            this.quoteForm.get('city')?.enable();
+            return this.quoteService.getCities(countryCode);
           }
+          this.quoteForm.get('city')?.disable();
+          this.cities = [];
           return of([]);
         })
       )
@@ -99,6 +121,9 @@ export class QuoteFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Enable city field for validation and submission
+    this.quoteForm.get('city')?.enable();
+
     if (this.quoteForm.valid) {
       this.loading = true;
       this.quoteService.createQuote(this.quoteForm.value).subscribe({

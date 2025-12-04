@@ -53,8 +53,10 @@
         <div nz-col [nzSpan]="12">
           <nz-form-item>
             <nz-form-label [nzSpan]="24" nzRequired>Country</nz-form-label>
-            <nz-form-control [nzSpan]="24" nzErrorTip="Please enter country">
-              <input nz-input formControlName="country" placeholder="Type country name" />
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select country">
+              <nz-select formControlName="country" nzShowSearch nzPlaceHolder="Select country">
+                <nz-option *ngFor="let item of countryOptions | keyvalue" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -62,18 +64,15 @@
         <div nz-col [nzSpan]="12">
           <nz-form-item>
             <nz-form-label [nzSpan]="24" nzRequired>City</nz-form-label>
-            <nz-form-control [nzSpan]="24" nzErrorTip="Please select city">
-              <input 
-                nz-input 
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select a city">
+              <nz-select 
                 formControlName="city" 
-                placeholder="Select city"
-                [nzAutocomplete]="auto"
-              />
-              <nz-autocomplete #auto>
-                <nz-auto-option *ngFor="let city of cities" [nzValue]="city">
-                  {{ city }}
-                </nz-auto-option>
-              </nz-autocomplete>
+                nzShowSearch
+                nzPlaceHolder="Select a city"
+                [nzLoading]="loadingCities"
+              >
+                <nz-option *ngFor="let city of cities" [nzValue]="city" [nzLabel]="city"></nz-option>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
