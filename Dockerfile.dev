@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+WORKDIR /app
+
+# Copy solution and project files
+COPY QuoteManagement.sln ./
+COPY src/QuoteManagement.API/QuoteManagement.API.csproj ./src/QuoteManagement.API/
+COPY src/QuoteManagement.Application/QuoteManagement.Application.csproj ./src/QuoteManagement.Application/
+COPY src/QuoteManagement.Domain/QuoteManagement.Domain.csproj ./src/QuoteManagement.Domain/
+COPY src/QuoteManagement.Infrastructure/QuoteManagement.Infrastructure.csproj ./src/QuoteManagement.Infrastructure/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy source code
+COPY src ./src
+
+# Install dotnet-watch for hot reload
+RUN dotnet tool install --global dotnet-watch
+
+WORKDIR /app/src/QuoteManagement.API
+
+# Use dotnet watch for hot reload
+CMD ["dotnet", "watch", "run", "--urls", "http://+:5000"]
